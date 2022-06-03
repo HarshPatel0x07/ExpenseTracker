@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta charset="utf-8">
+    <title>Login Page</title>
+</head>
+<body>
+<div class="header">
+    <a class="navbar-brand">Expense Tracker</a>
+    <a class="headLink" href="user_register">Register</a>
+</div>
+
+<div>
+    <h2>
+        <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+        <span th:text="${message}"></span>
+    </h2>
+</div>
+
+<!--/*@thymesVar id="user" type="com.externship.expensetracker.model.User"*/-->
+<form class="form-horizontal" action="#" th:action="@{/user_login}" th:object="${user}" method="post">
+    <div style="text-align: center;"><h2>User Login</h2></div>
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email</label>
+        <div class="col-xs-8">
+            <input class="form-control" th:field="*{email}" type="text" name="email"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Password</label>
+        <div class="col-xs-8">
+            <input class="form-control" th:field="*{password}" type="password" name="password" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div style="text-align: center;">
+            <input class="btn btn-primary" type="reset" value="Clear" />
+            <input class="btn btn-primary" type="submit" value="Login" />
+        </div>
+    </div>
+</form>
+</body>
+</html>

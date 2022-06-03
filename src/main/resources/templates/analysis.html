@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta charset="utf-8">
+    <title>View Analysis</title>
+</head>
+<body>
+<div class="header">
+    <a class="headLink" href="user_home">Home</a>
+    <a class="headLink" href="expense_add">Add New Expense</a>
+    <a class="headLink" href="balance_add">Add Money</a>
+    <a class="headLink" href="balance_view">View Balance</a>
+    <a class="headLink" href="expense_view">View Expense</a>
+    <a class="headLink" href="analysis">Analysis</a>
+    <a class="headLink login" href="logout">Log Out</a>
+</div>
+
+<div style="text-align: center;">
+    <div class="dropdown" style="padding-top:20px">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Select the type of chart to view
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="analysis_category">Category Wise Expenses</a></li>
+            <li><a class="dropdown-item" href="analysis_week">Expenses made in last 7 days</a></li>
+            <li><a class="dropdown-item" href="analysis_month">Expenses made every month</a></li>
+            <li><a class="dropdown-item" href="analysis_year">Expenses made every year</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

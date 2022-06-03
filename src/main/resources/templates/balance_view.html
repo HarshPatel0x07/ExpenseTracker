@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta charset="utf-8">
+    <title>View Balance</title>
+</head>
+<body>
+<div class="header">
+    <a class="headLink" href="user_home">Home</a>
+    <a class="headLink" href="expense_add">Add New Expense</a>
+    <a class="headLink" href="balance_add">Add Money</a>
+    <a class="headLink">View Balance</a>
+    <a class="headLink" href="expense_view">View Expense</a>
+    <a class="headLink" href="analysis">Analysis</a>
+    <a class="headLink login" href="logout">Log Out</a>
+</div>
+
+<div class="box">
+    <div class="text-block">
+        <h3>Your Wallet Balance is</h3>
+        <br/>
+        <!--/*@thymesVar id="netBalance" type="com.externship.expensetracker.controller.ExpenseTrackerController"*/-->
+        <span th:text="${netBalance}"> </span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta charset="utf-8">
+    <title>View Expense</title>
+</head>
+<body>
+<div class="header">
+    <a class="headLink" href="user_home">Home</a>
+    <a class="headLink" href="expense_add">Add New Expense</a>
+    <a class="headLink" href="balance_add">Add Money</a>
+    <a class="headLink" href="balance_view">View Balance</a>
+    <a class="headLink">View Expense</a>
+    <a class="headLink" href="analysis">Analysis</a>
+    <a class="headLink login" href="logout">Log Out</a>
+</div>
+
+<div style="text-align: center;">
+    <div class="container">
+        <h2>List of expenses</h2>
+
+        <table class="table" style="border:1px solid white">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>Date of Expense made</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="expenses" type="com.externship.expensetracker.model.Expenses"*/-->
+            <tr th:each="expense : ${expenses}">
+                <!--/*@thymesVar id="expense" type="com.externship.expensetracker.model.Expenses"*/-->
+                <td th:text="${expense.id}"></td>
+                <td th:text="${expense.amount}"></td>
+                <td th:text="${expense.date}"></td>
+                <td th:text="${expense.category}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

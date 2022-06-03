@@ -1,0 +1,139 @@
+Properties {
+
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.url = jdbc:mysql://remotemysql.com:3306/zlmqy2Gkxb
+    spring.datasource.username = zlmqy2Gkxb
+    spring.datasource.password = 4Yex3gRsHK
+    server.error.whitelabel.enabled=false
+    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+    spring.jpa.generate-ddl=true
+    spring.jpa.show-sql=true
+    server.port=${PORT:8080}
+}
+
+
+
+Models And Repositories{
+
+    Balance
+    {
+        int id; @Column(name = "bal_id")
+        int amount;
+        long user;
+        Repository {
+            int getNetBalanceOf(@Param("user") Long user);
+                @Query(value = "select sum(amount) from balance where user = :user", nativeQuery = true)
+        }
+    }
+
+
+    Category <----DELETED----
+    {
+        int id; @Column(name = "cat_id")
+        String category;
+        Repository {}
+    }
+
+
+    Expenses
+    {
+        int id; @Column(name = "expense_id")
+        int amount;
+        long user;
+        LocalDate date; @Column(columnDefinition = "Date")
+        int category;
+        Repository {
+            Iterable<Expenses> getAllEntries(@Param("user") long user);
+                @Query(value = "select * from expenses where user = :user", nativeQuery = true)
+            int getAllExpenses();  <----DELETED----
+                @Query(value = "select sum(amount) from expenses", nativeQuery = true)
+            int[] getCategoryWiseExpenses(@Param("user") long user);
+                @Query(value = "select sum(amount) from expenses where user = :user group by category order by category", nativeQuery = true)
+            String[] getAllCategories(@Param("user") long user);
+                @Query(value = "select distinct category from expenses where user = :user order by category", nativeQuery = true)
+            int[] getMonthWiseExpenses(@Param("user") long user);
+                @Query(value = "select sum(amount) from expenses where user = :user group by month(date)", nativeQuery = true)
+            String[] getMonths(@Param("user") long user);
+                @Query(value = "select month(date) from expenses where user = :user group by month(date)", nativeQuery = true)
+            int[] getYearWiseExpenses(@Param("user")long user);
+                @Query(value = "select sum(amount) from expenses where user = :user group by year(date)", nativeQuery = true)
+            String[] getYears(@Param("user") long user);
+                @Query(value = "select year(date) from expenses where user = :user group by year(date)", nativeQuery = true)
+            int[] getWeeklyExpenses();
+                @Query(value = "select sum(amount) from expenses where date between curdate()-7 AND curdate() group by date order by date", nativeQuery = true)
+            String[] getWeekDates();
+                @Query(value = "select date from expenses where date between curdate()-7 AND curdate() group by date order by date", nativeQuery = true)
+        }
+    }
+
+
+    User
+    {
+        private long id; @Column(name = "user_id")
+        private String email;
+        private String firstname, lastname;
+        private String password;
+        Repository {
+            User findByEmailIgnoreCase(String email);
+            long[] getAllUserIds();  <----DELETED----
+                @Query(value = "select user_id from user", nativeQuery = true)
+        }
+    }
+}
+
+Controller {
+    BalanceRepository balanceRepository;
+    CategoryRepository categoryRepository;
+    ExpensesRepository expensesRepository;
+    UserRepository userRepository;
+    long userId;
+    int netBalance;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    Private Function
+    {
+        public String displayIndexPage();
+            @RequestMapping("/")
+        public ModelAndView displayRegistrationPage(ModelAndView modelAndView, User user);
+            @GetMapping(value = "/user_register")
+        public String registerUser(ModelAndView modelAndView, User user);
+            @PostMapping("/user_register")
+        public ModelAndView displayLogInPage(ModelAndView modelAndView, User user);
+            @GetMapping("/user_login")
+        public ModelAndView logUserIn(ModelAndView modelAndView, User user);
+            @PostMapping("/user_login")
+        public String logUserOut();
+            @RequestMapping("/logout")
+        public ModelAndView displayExpenseAddPage(ModelAndView modelAndView, Expenses expenses);
+            @GetMapping("/expense_add")
+        public String addExpenses(ModelAndView modelAndView, Expenses expenses, Balance balance);
+            @PostMapping(value = "/expense_add")
+        public ModelAndView displayExpenseViewPage(ModelAndView modelAndView);
+            @GetMapping("/expense_view")
+        public ModelAndView addBalance(ModelAndView modelAndView, Balance balance);
+            @GetMapping(value = "/balance_add")
+        public ModelAndView saveMoney(ModelAndView modelAndView, Balance balance);
+            @PostMapping("/balance_add")
+        public ModelAndView displayBalanceViewPage(ModelAndView modelAndView);
+            @GetMapping(value = "/balance_view")
+        public String displayAnalysisPage();
+            @RequestMapping("/analysis")
+        public String displayCategoryWiseAnalysis();
+            @RequestMapping("/analysis_category")
+        public String displayLastWeekExpense();
+            @RequestMapping("/analysis_week")
+        public String displayMonthlyAnalysis();
+            @RequestMapping("/analysis_month")
+        public String displayYearlyAnalysis();
+            @RequestMapping("/analysis_year")
+        public ResponseEntity<TreeMap<String, Integer>> getPieChart(ModelAndView modelAndView);
+            @GetMapping("/analysis_category/data")
+        public ResponseEntity<TreeMap<String, Integer>> MonthWiseGraphData(ModelAndView modelAndView);
+            @GetMapping("/analysis_month/data")
+        public ResponseEntity<TreeMap<String, Integer>> YearWiseGraphData(ModelAndView modelAndView);
+            @GetMapping("/analysis_year/data")
+        public ResponseEntity<TreeMap<String, Integer>> Last7DaysGraphData(ModelAndView modelAndView);
+            @GetMapping("/analysis_week/data")
+        private TreeMap<String, Integer> getTable(int[] entries, String[] types);
+    }
+}

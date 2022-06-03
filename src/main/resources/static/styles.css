@@ -1,0 +1,66 @@
+html {
+  background-color: #E4E9FD;
+  background-image: -webkit-linear-gradient(65deg, #A683E3 50%, #E4E9FD 50%);
+  min-height: 1000px;
+  font-family: 'helvetica neue';
+}
+body{
+  background-color: transparent;
+}
+h1 {
+  color: #fff;
+  padding: 10px;
+}
+.box{
+  max-width: 400px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+
+}
+#heading {
+  background-color: #A683E3;
+  text-align: right;
+}
+
+.header{
+  text-align: right;
+  background-color:#A683E3;
+  position: relative;
+  padding-top:10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+}
+brand{
+  text-align: left;
+  position: fixed;
+  font-size: 1.5rem;
+  margin: .5rem;
+  float: left;
+}
+.headLink{
+  color: white;
+  text-decoration: none;
+  padding:10px 40px 20px 40px;
+
+}
+form {
+	max-width: 665px;
+	margin: 20px auto;
+	padding: 20px 20px;
+	background: #fff;
+	border-radius: 8px;
+}
+.form-group{
+  min-height: 70px;
+  border-bottom: 1px solid #F1F1F1;
+}
+.centered {
+  position: absolute;
+  top: 90%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
